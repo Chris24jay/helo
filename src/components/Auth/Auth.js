@@ -11,6 +11,20 @@ class Auth extends Component {
         }
     }
     //methods
+
+    componentDidMount(){
+        const {id} = this.props;
+        if(id) {
+            this.props.history.push(`/private`)
+        } else {
+            //double check sessions
+            axios.get(`/api/user`)
+            .then(res => {
+                this.props.updateUser(res.data)
+                this.props.history.push('/private')
+            })
+        }
+    }
     
     handleChange(prop, val){
         this.setState({
@@ -28,6 +42,10 @@ class Auth extends Component {
             this.props.history.push('/dashboard')
         })
         
+    }
+
+    login = () => {
+
     }
 
     //end of methods
